@@ -1,0 +1,20 @@
+
+<div>
+  <label>name:
+    <input [(ngModel)]="user" placeholder="name">{{player}}
+  </label>
+</div>
+<button (click)="savePlayer()">enter</button>
+
+<div>
+    <button (click)="startGame()">Start Game</button>
+</div>
+
+<div>
+    <button (click)="showGames()">Show Games</button>
+</div>
+<div>Games</div>
+  <a *ngFor="let g of games"
+      routerLink="/games/{{g.owner_name}}">
+  <div style="background-color:aqua" (click)="savePlayer(g,user)"> {{g.owner_name}}</div> 
+  
