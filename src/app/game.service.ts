@@ -14,11 +14,19 @@ export class GameService {
 
   constructor( private http: HttpClient) {}
 
-  
+  user: string;  
 
   addPlayer (owner: string, player: string): Observable<any> {
     let url = `http://127.0.0.1:5000/games/${owner}/players/${player}`
     return this.http.post<any>(url, {}, httpOptions)
+  }
+  
+  postAnswer (owner: string, answer: string): Observable<any> {
+    let url = `http://127.0.0.1:5000/games/${owner}/players/${this.user}/answer`
+    let body = {
+     "answer": answer
+   }
+    return this.http.post<any>(url, body, httpOptions)
   }
   
   startGame (user: String){
@@ -28,6 +36,10 @@ export class GameService {
   }
   showGames (){
     let url = `http://127.0.0.1:5000/games`
+    return this.http.get<any>(url,httpOptions)
+  }
+  getGame (owner_name: string){
+    let url = `http://127.0.0.1:5000/games/${owner_name}`
     return this.http.get<any>(url,httpOptions)
   }
 }

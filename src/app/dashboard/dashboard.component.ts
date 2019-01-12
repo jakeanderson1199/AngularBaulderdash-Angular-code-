@@ -14,7 +14,13 @@ export class DashboardComponent implements OnInit {
   }
 games: Game[];
 
-  user: string;
+  get user(): string {
+    return this.gameService.user
+  }
+
+  set user(user: string) {
+     this.gameService.user = user;
+  }
 
   savePlayer(game: Game, username: string): void {
     this.gameService.addPlayer(game.owner_name,username)

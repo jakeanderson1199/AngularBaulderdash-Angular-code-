@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-
-
+import { Game,GameService } from '../game.service'
+import {ActivatedRoute} from '@angular/router'
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
@@ -9,16 +9,24 @@ import { HttpClient } from '@angular/common/http';
 })
 export class GameComponent implements OnInit {
 
-  //@Input() game: Game
-
-  constructor(private httpClient: HttpClient) { }
+  game: Game;
+  answer: string;
+  owner: string;
+  constructor(
+    private gameService: GameService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-    
-
-    
-
-    
+    this.owner= this.route.snapshot.paramMap.get('owner_name')
   }
 
+  saveAnswer(): void {
+    
+    this.gameService.postAnswer(this.owner, this.answer)
+    .subscribe(r=> console.log(r))}
+  refresh(): void {
+    
+    this.gameService.getGame(this.owner)
+    .subscribe(r=> this.game = r)  
+  }
 }
