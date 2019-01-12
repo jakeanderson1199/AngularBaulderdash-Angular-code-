@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService, Game }  from '../game.service';
 import { addPlayer } from '@angular/core/src/render3/players';
+import {ActivatedRoute, Router } from '@angular/router';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -8,9 +10,11 @@ import { addPlayer } from '@angular/core/src/render3/players';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor(private gameService: GameService,) { }
+  constructor(private gameService: GameService,
+              private router: Router) { }
 
   ngOnInit() {
+    this.showGames();
   }
 games: Game[];
 
@@ -22,9 +26,13 @@ games: Game[];
      this.gameService.user = user;
   }
 
-  savePlayer(game: Game, username: string): void {
-    this.gameService.addPlayer(game.owner_name,username)
-    .subscribe(r=> console.log(r))}
+  savePlayer(game: Game): void {
+    this.gameService.addPlayer(game.owner_name,this.user)
+    .subscribe(r=> {
+      console.log(r);
+      this.router.navigate([`/games/${game.owner_name}`])
+    })
+  }
   startGame(): void {
     this.gameService.startGame(this.user)
     .subscribe(r=> console.log(r))}

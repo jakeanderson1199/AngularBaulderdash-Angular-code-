@@ -17,13 +17,14 @@ export class GameComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.owner= this.route.snapshot.paramMap.get('owner_name')
+    this.owner= this.route.snapshot.paramMap.get('owner_name');
+    this.refresh();
   }
 
   saveAnswer(): void {
     
     this.gameService.postAnswer(this.owner, this.answer)
-    .subscribe(r=> console.log(r))}
+    .subscribe(r=> this.game = r)}
   refresh(): void {
     
     this.gameService.getGame(this.owner)

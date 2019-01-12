@@ -14,15 +14,16 @@ export class GameService {
 
   constructor( private http: HttpClient) {}
 
-  user: string;  
+  user: string;
+  baseurl = 'http://127.0.0.1:5000';  
 
   addPlayer (owner: string, player: string): Observable<any> {
-    let url = `http://127.0.0.1:5000/games/${owner}/players/${player}`
+    let url = `${this.baseurl}/games/${owner}/players/${player}`
     return this.http.post<any>(url, {}, httpOptions)
   }
   
   postAnswer (owner: string, answer: string): Observable<any> {
-    let url = `http://127.0.0.1:5000/games/${owner}/players/${this.user}/answer`
+    let url = `${this.baseurl}/games/${owner}/players/${this.user}/answer`
     let body = {
      "answer": answer
    }
@@ -31,15 +32,15 @@ export class GameService {
   
   startGame (user: String){
     let g = new Game();
-    let url = `http://127.0.0.1:5000/games/${user}`
+    let url = `${this.baseurl}/games/${user}`
     return this.http.post<any>(url, {}, httpOptions)
   }
   showGames (){
-    let url = `http://127.0.0.1:5000/games`
+    let url = `${this.baseurl}/games`
     return this.http.get<any>(url,httpOptions)
   }
   getGame (owner_name: string){
-    let url = `http://127.0.0.1:5000/games/${owner_name}`
+    let url = `${this.baseurl}/games/${owner_name}`
     return this.http.get<any>(url,httpOptions)
   }
 }

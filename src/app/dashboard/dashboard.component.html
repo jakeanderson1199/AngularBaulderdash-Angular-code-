@@ -1,20 +1,25 @@
+<h1>Welcom to BoulderDash</h1>
 
 <div>
   <label>name:
-    <input [(ngModel)]="user" placeholder="name">{{player}}
+    <input [(ngModel)]="tmpUser" placeholder="name">{{player}}
   </label>
+  <button (click)="user = tmpUser">Save</button>
 </div>
-<button (click)="savePlayer()">enter</button>
 
+
+<div *ngIf="user">
 <div>
     <button (click)="startGame()">Start Game</button>
 </div>
 
 <div>
-    <button (click)="showGames()">Show Games</button>
+    <button (click)="showGames()">Refresh Games</button>
 </div>
 <div>Games</div>
-  <a *ngFor="let g of games"
-      routerLink="/games/{{g.owner_name}}">
-  <div style="background-color:aqua" (click)="savePlayer(g,user)"> {{g.owner_name}}</div> 
-  
+
+<div *ngFor="let g of games"> 
+  <a  (click)="savePlayer(g)">{{g.owner_name}} Click to join</a>
+  </div>
+    
+</div>
