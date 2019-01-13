@@ -47,7 +47,7 @@ export class GameComponent implements OnInit {
     });
     
   }
-  navigateVote(): void {
+  vote(): void {
 
     
   }

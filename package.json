@@ -20,9 +20,9 @@
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
     "bootstrap": "^4.2.1",
-    "bootstrap-sass": "^3.4.0",
     "core-js": "^2.5.4",
     "ng-bootstrap": "^1.6.3",
+    "node-sass": "^4.11.0",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"

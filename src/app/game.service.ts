@@ -43,6 +43,10 @@ export class GameService {
     let url = `${this.baseurl}/games/${owner_name}`
     return this.http.get<any>(url,httpOptions)
   }
+  vote (owner_name: string): Observable<any> {
+    let url = `${this.baseurl}/games/${owner_name}/players/${this.user}/vote`
+  }
+
 }
 
 export class Game {
