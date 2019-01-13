@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.showGames();
+    //this.showGames();
   }
 games: Game[];
 

@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
+import { VoteComponent } from './vote/vote.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameComponent,
-    DashboardComponent
+    DashboardComponent,
+    VoteComponent
   ],
   imports: [
     BrowserModule,

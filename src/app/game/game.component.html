@@ -1,24 +1,34 @@
-<div>
-  Waiting for Players...
+<div *ngIf=!allAnswered>
+    <div>
+        Waiting for Players...
+    </div>
+    <div>
+        Here is the first question! {{game?.turn?.current_question.question}}
+
+    </div>
+    <div>
+        The category is {{game?.turn?.current_question.category}}
+
+    </div>
+    <div>
+        <label>answer:
+            <input [(ngModel)]="answer" placeholder="answer">{{answer}}
+        </label>
+    </div>
+    <div>
+        <button (click)="saveAnswer()">Save Answer</button>
+    </div>
+    <div>
+        <button (click)="refresh()">refresh</button>
+    </div>
+    <div *ngIf="user===owner">
+        <button (click)="navigateVote()">Click when all players have entered</button>
+    </div>
 </div>
-<div>
-    Here is the first question!   {{game?.turn?.current_question.question}}
-  
-</div>
-<div>
-    The category is   {{game?.turn?.current_question.category}}
-  
-</div>
-<div>
-    <label>answer:
-      <input [(ngModel)]="answer" placeholder="answer">{{answer}}
-    </label>
-</div>
-<div>
-    <button (click)="saveAnswer()">Save Answer</button>
-</div>
-<div>
-    <button (click)="refresh()">refresh</button>
+<div *ngIf=allAnswered>
+    <div *ngFor="let p of game?.players">
+        {{p.answer.text}}
+    </div>
 </div>
 <pre>
   {{game | json}}
