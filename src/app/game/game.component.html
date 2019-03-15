@@ -22,20 +22,17 @@
     <div>
         <button (click)="refresh()">refresh</button>
     </div>
-    <div *ngIf="user===owner">
-        <button (click)="navigateVote()">Click when all players have entered</button>
-    </div>
 </div>
 
 <div *ngIf=allAnswered>
-    <div class="row" *ngFor="let p of game?.players">
+    <div class="row" *ngFor="let a of answers">
 
         <div class="col text-left">
-            {{p.answer.text}}
+            {{a.answer}}
         </div>
-        <div class="col-2">
+        <div *ngIf="!a.isUser" class="col-2">
 
-            <a class="btn btn-light btn-sm" (click)="vote(p)">vote</a>
+            <a class="btn btn-light btn-sm" (click)="vote(a)">vote</a>
         </div>
     </div>
 

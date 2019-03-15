@@ -43,8 +43,12 @@ export class GameService {
     let url = `${this.baseurl}/games/${owner_name}`
     return this.http.get<any>(url,httpOptions)
   }
-  vote (owner_name: string): Observable<any> {
+  postVote (owner_name: string,player_name: string,vote: string){
     let url = `${this.baseurl}/games/${owner_name}/players/${this.user}/vote`
+    let body = {
+      "vote": vote
+    }
+    return this.http.post<any>(url, body, httpOptions)
   }
 
 }
@@ -55,4 +59,5 @@ players: any[];
 answers: any[];
 votes: any[];
 index: number;
+turn : any;
 }
