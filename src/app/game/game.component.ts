@@ -17,6 +17,8 @@ export class GameComponent implements OnInit {
   owner: string;
   allAnswered: boolean;
   userVoted: boolean;
+  ui:any = {}
+
   constructor(
     private gameService: GameService,
     private route: ActivatedRoute,
@@ -65,6 +67,15 @@ export class GameComponent implements OnInit {
         this.userVoted = true;
       }
       )
+  }
+  nextTurn(): void {
+    this.gameService.newTurn(this.owner)
+    .subscribe(r => {
+      this.onGameUpdated(r)
+      this.userVoted = false;
+      this.allAnswered = false;
+      this.answer = null;
+    })
   }
 
   get answers(): Answer[] {

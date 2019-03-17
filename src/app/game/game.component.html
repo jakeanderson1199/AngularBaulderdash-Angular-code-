@@ -1,9 +1,15 @@
 <div>
-    Here is the first question! {{game?.turn?.current_question.question}}
+        <label>  Category </label>
+        {{game?.turn?.current_question.category}}
 </div>
+
 <div>
-    The category is {{game?.turn?.current_question.category}}
+        <label>Question</label>
+ {{game?.turn?.current_question.question}}
 </div>
+
+
+
 <div *ngIf=!allAnswered>
     <div *ngIf="userAnswered">
         Waiting for Players to answer...
@@ -26,7 +32,7 @@
     <div class="row" *ngFor="let a of answers">
 
         <div class="col-auto">
-            <div style="width: 100px">
+            <div style="width: 70px">
                 <a *ngIf="!a.isUser"  class="btn btn-light btn-sm" (click)="vote(a)">vote</a>
             </div>
         </div>
@@ -46,10 +52,15 @@
             <div>
                 Player: {{p.name}} Points:{{p.points}}
             </div>
+            <div *ngIf="owner==user">
+                <a class="btn btn-light btn-sm" (click)="nextTurn()">New Turn</a>
+            </div>
         </div>
 
     </div>
 </div>
-<pre>
+
+<a (click)="ui.showjson = !ui.showjson">show/hide json</a>
+<pre *ngIf="ui.showjson">
   {{game | json}}
 </pre>

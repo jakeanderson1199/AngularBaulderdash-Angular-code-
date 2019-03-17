@@ -50,6 +50,11 @@ export class GameService {
     }
     return this.http.post<any>(url, body, httpOptions)
   }
+  newTurn (owner_name: string){
+    let url = `${this.baseurl}/games/${owner_name}/turns`
+    let body = {}
+    return this.http.post<any>(url, body, httpOptions)
+  }
 
 }
 
