@@ -16,6 +16,7 @@ export class GameComponent implements OnInit {
   answer: string;
   owner: string;
   allAnswered: boolean;
+  userVoted: boolean;
   constructor(
     private gameService: GameService,
     private route: ActivatedRoute,
@@ -24,6 +25,7 @@ export class GameComponent implements OnInit {
   ngOnInit() {
     this.owner = this.route.snapshot.paramMap.get('owner_name');
     this.refresh();
+   
   }
   get user(): string {
     return this.gameService.user
@@ -34,24 +36,35 @@ export class GameComponent implements OnInit {
   saveAnswer(): void {
 
     this.gameService.postAnswer(this.owner, this.answer)
-      .subscribe(r => this.game = r)
+      .subscribe(r => {
+        this.onGameUpdated(r);
+      })
   }
   refresh(): void {
 
     this.gameService.getGame(this.owner)
       .subscribe(r => {
-        this.game = r;
-        let allAnswered = true
-        this.game.players.forEach(p => {
-          allAnswered = allAnswered && !!p.answer;
-        });
-        this.allAnswered = allAnswered
+        this.onGameUpdated(r);
       });
 
   }
+
+  private onGameUpdated(game: Game) {
+    this.game = game;
+    let allAnswered = true
+    this.game.players.forEach(p => {
+      allAnswered = allAnswered && !!p.answer;
+    });
+    this.allAnswered = allAnswered
+  }
+
   vote(a): void {
     this.gameService.postVote(this.owner, this.user, a)
-      .subscribe(r => this.game = r)
+      .subscribe(r => {
+        this.onGameUpdated(r);
+        this.userVoted = true;
+      }
+      )
   }
 
   get answers(): Answer[] {
@@ -63,25 +76,32 @@ export class GameComponent implements OnInit {
       answers.push(a);
     });
     //todo sort randomley
-    let real : Answer = {answer : this.game.turn.current_question.real_answer, isUser : false, isReal :true};
+    let real: Answer = { answer: this.game.turn.current_question.real_answer, isUser: false, isReal: true };
     answers.push(real);
     answers = shuffle(answers);
     return answers;
   }
+
+  get userAnswered(): boolean {
+    if (!this.game) return false;
+    let userplayer = this.game.players.find(p => p.name == this.user);
+    return userplayer && userplayer.answer;
+  }
+
 }
 
 export class Answer {
-isReal: boolean;
+  isReal: boolean;
   isUser: boolean;
   answer: string
 }
 function shuffle(a) {
   var j, x, i;
   for (i = a.length - 1; i > 0; i--) {
-      j = Math.floor(Math.random() * (i + 1));
-      x = a[i];
-      a[i] = a[j];
-      a[j] = x;
+    j = Math.floor(Math.random() * (i + 1));
+    x = a[i];
+    a[i] = a[j];
+    a[j] = x;
   }
   return a;
 }
