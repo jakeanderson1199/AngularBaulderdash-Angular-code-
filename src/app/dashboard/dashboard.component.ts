@@ -35,7 +35,10 @@ games: Game[];
   }
   startGame(): void {
     this.gameService.startGame(this.user)
-    .subscribe(r=> console.log(r))}
+    .subscribe(r=> {
+      console.log(r);
+      this.showGames();
+    })}
 
   showGames(): void {
     this.gameService.showGames()
