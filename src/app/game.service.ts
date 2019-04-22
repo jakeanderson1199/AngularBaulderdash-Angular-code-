@@ -16,7 +16,7 @@ export class GameService {
 
   user: string;
   baseurl = 'http://127.0.0.1:5000';  
-
+  //baseurl = 'http://192.168.1.19:5000';
   addPlayer (owner: string, player: string): Observable<any> {
     let url = `${this.baseurl}/games/${owner}/players/${player}`
     return this.http.post<any>(url, {}, httpOptions)
