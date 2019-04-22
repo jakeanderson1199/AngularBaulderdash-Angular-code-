@@ -15,7 +15,7 @@ export class GameService {
   constructor( private http: HttpClient) {}
 
   user: string;
-  baseurl = 'http://127.0.0.1:5000';  
+  baseurl = '/api';  
   //baseurl = 'http://192.168.1.19:5000';
   addPlayer (owner: string, player: string): Observable<any> {
     let url = `${this.baseurl}/games/${owner}/players/${player}`
